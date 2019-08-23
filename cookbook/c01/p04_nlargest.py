@@ -3,9 +3,16 @@
 """
 Topic: 返回集合中最大或最小的N个元素
 Desc : 
+
+关于 堆排序的基础知识：https://www.cnblogs.com/clnchanpin/p/7217950.html
 """
 import heapq
 
+
+def test1():
+    nums = [1, 8, 2, 23, 7, -4, 18, 23, 42, 37, 2]
+    print(heapq.nlargest(3, nums)) # Prints [42, 37, 23]
+    print(heapq.nsmallest(3, nums)) # Prints [-4, 1, 2]    
 
 def main():
     portfolio = [
@@ -30,5 +37,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    test1()
+    #main()
 
