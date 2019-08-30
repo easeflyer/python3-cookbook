@@ -3,6 +3,13 @@
 """
 Topic: 字符串搜索和替换
 Desc : 
+
+    知识点：
+        1 re.sub() 或者 正则对象.sub(), 正则替换。（注意不是查找）
+        2 newtext,n re.subn()  n 返回替换的次数。
+        3 month_abbr[n] 返回月份小写 list(month_abbr)
+        4 用回调函数处理替换结果。回调函数接收 正则参数，返回替换结果。
+        5 group(n) 调取匹配分组，也就是模式中的第几个小括号
 """
 import re
 from calendar import month_abbr
@@ -21,7 +28,7 @@ def search_replace():
     text = 'Today is 11/27/2012. PyCon starts 3/13/2013.'
     print(re.sub(r'(\d+)/(\d+)/(\d+)', r'\3-\1-\2', text))
 
-    # 先编译
+    # 先编译 再替换。
     datepat = re.compile(r'(\d+)/(\d+)/(\d+)')
     print(datepat.sub(r'\3-\1-\2', text))
 

@@ -3,6 +3,21 @@
 """
 Topic: 字符串令牌化
 Desc : 
+
+知识点：
+    1 scanner 的使用。
+
+scanner:
+    a = scanner.match() 每次调用返回一个匹配对象。
+    (?P<TOKENNAME>) 是给分组命名
+    a.lastgroup     是匹配分组的名称。也就是给小括号括起来的正则命名。
+    a.group()       返回分组匹配的结果字串。
+    
+
+namedtuple
+    在 generate_tokens 生成器函数中。还用到了 namedtuple 命名元组。
+
+
 """
 import re
 from collections import namedtuple
@@ -51,6 +66,8 @@ def tokenize_str():
     # Token(type='EQ', value='=')
     # Token(type='WS', value=' ')
     # Token(type='NUM', value='42')
+
+    print('{:>60s}'.format('text'))  # 右对齐的 高级分隔符
     tokens = (tok for tok in generate_tokens(master_pat, text)
               if tok.type != 'WS')
     for tok in tokens:
@@ -66,8 +83,8 @@ def tokenize_str():
 
 
 
-
 def generate_tokens(pat, text):
+    ''' 返回命名元组'''
     Token = namedtuple('Token', ['type', 'value'])
     scanner = pat.scanner(text)
     for m in iter(scanner.match, None):

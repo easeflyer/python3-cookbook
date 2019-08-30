@@ -3,6 +3,10 @@
 """
 Topic: 字符串匹配和搜索
 Desc : 
+
+知识点：
+    1 大多数正则 参考文档。
+    2 注意 match() find() findall() search() 等函数可以用 re. 调用。也可以用正则对象调用
 """
 import  re
 
@@ -10,10 +14,10 @@ import  re
 def match_search():
     # 字面字符串匹配
     text = 'yeah, but no, but yeah, but no, but yeah'
-    print(text == 'yeah')
-    print(text.startswith('yeah'))
-    print(text.endswith('no'))
-    print(text.find('no'))
+    print(text == 'yeah')           # False
+    print(text.startswith('yeah'))  # True
+    print(text.endswith('no'))      # False
+    print(text.find('no'))          # 10
 
     # 简单的日期匹配
     text1 = '11/27/2012'

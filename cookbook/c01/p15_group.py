@@ -3,6 +3,16 @@
 """
 Topic: 分组迭代
 Desc : 
+
+知识点：
+    1 groupby 返回 <itertools.groupby object at 0x7feddfe1f8f0> 对象
+    2 list(Groupby) 返回列表(key,_groupbyer) key 分组字段， groupbyer 分组元素。
+    3 用defaultdict 构建多值字典。对数据按照日期分组。
+
+分析：
+    defaultdict 速度更快，并且可以对日期进行随机访问。缺点是占用更多内存。
+    groupby 的好处是用于分组输出，占用更少内存。
+
 """
 from operator import itemgetter
 from itertools import groupby
@@ -22,13 +32,16 @@ def group_iter():
 
     # Sort by the desired field first
     rows.sort(key=itemgetter('date'))
+    print(groupby(rows, key=itemgetter('date')))
+    print(list(groupby(rows, key=itemgetter('date'))))
     # Iterate in groups
     for date, items in groupby(rows, key=itemgetter('date')):
         print(date)
         for i in items:
             print(' ', i)
 
-    # defaultdict使用
+    # defaultdict使用 
+    # 这里构造的是一个 多值 字典。日期是键，所有的记录是值。
     from collections import defaultdict
     rows_by_date = defaultdict(list)
     for row in rows:

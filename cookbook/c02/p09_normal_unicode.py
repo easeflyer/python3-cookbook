@@ -3,6 +3,10 @@
 """
 Topic: unicode字符串标准化表示
 Desc : 
+
+知识点：
+    1 normalize 函数 对字符串进行标准化。把两种不同表示的uncode 标准化为一种。
+    2 当处理用户输入的时候，进行标准化处理就比较重要了，影响到后期存储和检索。
 """
 import unicodedata
 
@@ -27,12 +31,14 @@ def nor_unicode():
 
     # 扩展的NFKC和NFKD
     s = '\ufb01'  # A single character
-    print(s, len(s))
-    print(unicodedata.normalize('NFD', s), len(unicodedata.normalize('NFD', s)))
-    print(unicodedata.normalize('NFKC', s), len(unicodedata.normalize('NFKC', s)))
-    print(unicodedata.normalize('NFKD', s), len(unicodedata.normalize('NFKD', s)))
+    # s = 'n\u0303'  # n\u0303 是一个独特的字符 m\u0303 则不成立。
+    print("0:",s, len(s))
+    print("1:",unicodedata.normalize('NFC', s), len(unicodedata.normalize('NFC', s)))
+    print("2:",unicodedata.normalize('NFD', s), len(unicodedata.normalize('NFD', s)))
+    print("3:",unicodedata.normalize('NFKC', s), len(unicodedata.normalize('NFKC', s)))
+    print("4:",unicodedata.normalize('NFKD', s), len(unicodedata.normalize('NFKD', s)))
 
-    # 消除变音符
+    # 消除变音符 把 n 上面的波浪线去掉了。
     t1 = unicodedata.normalize('NFD', s1)
     print(''.join(c for c in t1 if not unicodedata.combining(c)))
 
