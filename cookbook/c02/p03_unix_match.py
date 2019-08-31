@@ -3,6 +3,8 @@
 """
 Topic: Unix Shell通配符匹配
 Desc : 
+
+    知识点：比较简单参考原文。
 """
 from fnmatch import fnmatch, fnmatchcase
 

@@ -3,6 +3,13 @@
 """
 Topic: 忽略大小写
 Desc : 
+
+
+代码分析
+    matchcase(word) 是一个高阶函数。返回一个回调函数，作为 sub 的参数。
+    参考p05 sub 的回调函数如何使用。
+ 
+
 """
 import re
 
