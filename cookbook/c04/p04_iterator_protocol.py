@@ -3,6 +3,9 @@
 """
 Topic: 自定义迭代器协议
 Desc : 
+
+DepthFirstIterator 比较繁琐，略过。
+直接用上节介绍的，生成器实现自定义即可。
 """
 
 

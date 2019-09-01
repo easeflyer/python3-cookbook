@@ -3,6 +3,9 @@
 """
 Topic: sample
 Desc : 
+
+这个例子比较有代表行，运用灵活，值得再看。
+
 """
 
 import os

@@ -3,6 +3,13 @@
 """
 Topic: 带外部状态的生成器
 Desc : 
+
+知识点：
+    1 enumerate 的使用。
+    2 通过定义一个类，并实现__iter__。 不但能使用自定义的迭代器规则，同事还可以访问相关属性。
+
+a = ['aa','bb','cc']
+list( enumerate(a,1)) [(1, 'aa'), (2, 'bb'), (3, 'cc')]  1 设定起始数值
 """
 from collections import deque
 
@@ -22,7 +29,7 @@ class linehistory:
 
 
 def gen_extrastate():
-    with open('somefile.txt') as f:
+    with open('p06_generator_extrastate.py') as f:
         lines = linehistory(f)
         for line in lines:
             if 'python' in line:

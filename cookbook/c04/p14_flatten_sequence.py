@@ -4,7 +4,7 @@
 Topic: sample
 Desc : 
 """
-from collections import Iterable
+from collections.abc import Iterable
 
 
 def flatten(items, ignore_types=(str, bytes)):
@@ -18,11 +18,8 @@ def flatten(items, ignore_types=(str, bytes)):
 def flatten_seq():
     items = [1, 2, [3, 4, [5, 6], 7], 8]
     # Produces 1 2 3 4 5 6 7 8
-    for x in flatten(items):
-        print(x)
+    print(list(flatten(items)))
     items = ['Dave', 'Paula', ['Thomas', 'Lewis']]
-    for x in flatten(items):
-        print(x)
-
+    print(list(flatten(items)))
 if __name__ == '__main__':
     flatten_seq()
