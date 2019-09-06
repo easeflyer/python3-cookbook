@@ -10,6 +10,11 @@ Desc :
     2   str.format(k1=v1,k2=v2) 也可以用 str.format_map(dict) 同等。
         可以用 vars() 返回字典的功能来作为 参数。
     3   __missing__() 解决缺失键的问题。
+
+额外：
+
+format语法中：{0.x!r} 意思是 输出 第0个参数的x属性，并且用 __repr__来提供输出
+可以补充个案例。
 """
 import sys
 
