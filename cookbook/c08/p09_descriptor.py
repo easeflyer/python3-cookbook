@@ -3,6 +3,11 @@
 """
 Topic: 通过描述器定义新的实例属性
 Desc : 
+
+环境不好，回头再看。
+
+参考文档：
+https://www.cnblogs.com/Jimmy1988/p/6808237.html
 """
 
 # Descriptor attribute for an integer type-checked attribute
