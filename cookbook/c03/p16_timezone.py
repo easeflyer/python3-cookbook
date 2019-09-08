@@ -3,6 +3,13 @@
 """
 Topic: 日期时区和本地化
 Desc : 
+
+
+知识点：
+    1 引入 pytz 使用时区
+    2 为了不至于混乱。如果时间计算比较多，一般都是：处理本地化日期的通常的策略先将所有日期转换为UTC时间， 
+    并用它来执行所有的中间存储和操作
+
 """
 from datetime import datetime, timedelta
 from pytz import timezone

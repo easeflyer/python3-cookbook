@@ -3,6 +3,10 @@
 """
 Topic: 格式化输出数字
 Desc : 
+
+知识点：
+    1 format() 函数的用法。 对齐，居中，小数位等。
+    2 数字每三位加逗号。
 """
 
 
@@ -25,7 +29,7 @@ def format_number():
     print(format(x, '0,.1f'))
 
     print(format(x, 'e'))
-    print(format(x, '0.2E'))
+    print("0.2E:",format(x, '0.2E'))
 
     # strings
     print('The value is {:0,.2f}'.format(x))
@@ -34,6 +38,7 @@ def format_number():
     print(format(-x, '0.1f'))
 
     swap_separators = {ord('.'): ',', ord(','): '.'}
+    swap_separators = str.maketrans({'.':',',',':'.'})
     print(format(x, ',').translate(swap_separators))
 
 

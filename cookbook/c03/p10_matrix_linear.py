@@ -3,6 +3,8 @@
 """
 Topic: 矩阵和线性代数
 Desc : 
+
+暂时跳过。
 """
 import numpy as np
 import numpy.linalg

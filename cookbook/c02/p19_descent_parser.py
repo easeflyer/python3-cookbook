@@ -3,6 +3,11 @@
 """
 Topic: 下降解析器
 Desc : 
+
+分析：
+    算法基本原理。首先进行令牌化。
+    然后针对每一个语法规则，编写一个方法。进行解析。
+
 """
 import re
 import collections

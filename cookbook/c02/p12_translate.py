@@ -10,6 +10,10 @@ translate(table[,deletechars])
 
 
 
+str.encode(encoding='编码',errors='错误处理')
+'strict'，表示编码错误会引发 UnicodeError。 其他可用的值为 'ignore', 'replace', 
+'xmlcharrefreplace', 'backslashreplace'
+
 
 """
 import unicodedata

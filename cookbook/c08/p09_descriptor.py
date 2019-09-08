@@ -16,12 +16,14 @@ class Integer:
         self.name = name
 
     def __get__(self, instance, cls):
+        print('__get__:')
         if instance is None:
             return self
         else:
             return instance.__dict__[self.name]
 
     def __set__(self, instance, value):
+        print('__set__:')
         if not isinstance(value, int):
             raise TypeError('Expected an int')
         instance.__dict__[self.name] = value
@@ -35,13 +37,16 @@ class Point:
     y = Integer('y')
 
     def __init__(self, x, y):
+        print('---1---')
         self.x = x
+        print('---2---')
         self.y = y
 
 
-p = Point(2, 3)
-print(p.x)
-p.y = 5
+def test1():
+    p = Point(2, 3)
+    print(p.x)
+    p.y = 5    
 
 
 # Descriptor for a type-checked attribute
@@ -84,3 +89,6 @@ class Stock:
         self.shares = shares
         self.price = price
 
+
+if __name__ == '__main__':
+    test1()

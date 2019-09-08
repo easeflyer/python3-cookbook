@@ -3,6 +3,8 @@
 """
 Topic: sample
 Desc : 
+
+复数，暂时略过。
 """
 import cmath
 

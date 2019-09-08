@@ -3,6 +3,11 @@
 """
 Topic: 精确的浮点数运算
 Desc : 
+
+知识点：
+    1 注意浮点数的误差，这种误差通常是可以被接受的范围。但应该做到心里有数。
+    2 使用 Decimal 精确计算。
+    3 使用 math.fum 精确求和。
 """
 from decimal import Decimal
 from decimal import localcontext

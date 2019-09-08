@@ -7,16 +7,16 @@ Desc :
 
 
 def round_num():
-    print(round(1.23, 1))
+    print((1.23, 1))
     print(round(1.27, 1))
     print(round(-1.27, 1))
     print(round(1.25361,3))
 
     # 舍入数为负数
     a = 1627731
-    print(round(a, -1))
-    print(round(a, -2))
-    print(round(a, -3))
+    print(round(a, -1)) # 1627730
+    print(round(a, -2)) # 1627700
+    print(round(a, -3)) # 1628000
 
     # 格式化输出
     x = 1.23456
