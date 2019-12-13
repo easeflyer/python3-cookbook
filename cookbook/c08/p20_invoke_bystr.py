@@ -3,6 +3,11 @@
 """
 Topic: 通过字符串调用方法
 Desc : 
+
+知识点：
+    1 通过 getattr 实现用字符串调用方法。
+    2 通过 operator.methodcaller() 实现。
+    3 注意二者语法上的不同。转变下语法可以相互替代。
 """
 
 import math
@@ -38,3 +43,5 @@ points = [
 ]
 # Sort by distance from origin (0, 0)
 points.sort(key=operator.methodcaller('distance', 0, 0))
+# points.sort(key=lambda p:getattr(p,'distance')(0,0)) # 替代方案
+print(points)

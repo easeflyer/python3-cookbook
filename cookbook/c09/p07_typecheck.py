@@ -3,6 +3,8 @@
 """
 Topic: 函数参数强制类型检查
 Desc : 
+
+    本案例使用的时候需要对 signature 有充分的了解。
 """
 
 from inspect import signature
@@ -16,6 +18,7 @@ def typeassert(*ty_args, **ty_kwargs):
             return func
 
         # Map function argument names to supplied types
+        import pdb;pdb.set_trace()
         sig = signature(func)
         bound_types = sig.bind_partial(*ty_args, **ty_kwargs).arguments
 

@@ -25,11 +25,12 @@ class SortedItems(collections.Sequence):
         bisect.insort(self._items, item)
 
 
-items = SortedItems([5, 1, 3])
-print(list(items))
-print(items[0], items[-1])
-items.add(2)
-print(list(items))
+def test1():
+    items = SortedItems([5, 1, 3])
+    print(list(items))
+    print(items[0], items[-1])
+    items.add(2)
+    print(list(items))    
 
 
 class Items(collections.MutableSequence):
@@ -57,5 +58,10 @@ class Items(collections.MutableSequence):
         print('Len')
         return len(self._items)
 
-a = Items([1, 2, 3])
-print(len(a))
+def test2():
+    a = Items([1, 2, 3])
+    print(len(a))
+
+if __name__ == "__main__":
+    test1()
+    test2()

@@ -3,6 +3,12 @@
 """
 Topic: 简化数据结构的初始化
 Desc : 
+    你写了很多仅仅用作数据结构的类，不想写太多烦人的 __init__() 函数
+通过定义父类的 __init__ 结合 setattr() 函数，实现用下面的方式定义属性：
+    _fields = ['name', 'shares', 'price']
+
+
+
 """
 import math
 
@@ -18,21 +24,23 @@ class Structure1:
         for name, value in zip(self._fields, args):
             setattr(self, name, value)
 
-# Example class definitions
-if __name__ == '__main__':
-    class Stock(Structure1):
-        _fields = ['name', 'shares', 'price']
 
-    class Point(Structure1):
-        _fields = ['x', 'y']
+class Stock(Structure1):
+    _fields = ['name', 'shares', 'price']
 
-    class Circle(Structure1):
-        _fields = ['radius']
+class Point(Structure1):
+    _fields = ['x', 'y']
 
-        def area(self):
-            return math.pi * self.radius ** 2
+class Circle(Structure1):
+    _fields = ['radius']
+    def area(self):
+        return math.pi * self.radius ** 2
+
+
+def test0():
 
     s = Stock('ACME', 50, 91.1)
+    print(f"s.name:{s.name} s.shares:{s.shares} s.price:{s.price}")
     p = Point(2, 3)
     c = Circle(4.5)
 
@@ -49,21 +57,22 @@ class Structure2:
             setattr(self, name, value)
 
         # Set the remaining keyword arguments
+        # [len(args):] 这个切片 只对 关键字参数进行访问
         for name in self._fields[len(args):]:
             setattr(self, name, kwargs.pop(name))
 
         # Check for any remaining unknown arguments
         if kwargs:
             raise TypeError('Invalid argument(s): {}'.format(','.join(kwargs)))
+class Stock(Structure2):
+    _fields = ['name', 'shares', 'price']
 
-# Example use
-if __name__ == '__main__':
-    class Stock(Structure2):
-        _fields = ['name', 'shares', 'price']
-
-    s1 = Stock('ACME', 50, 91.1)
+def test1():
+    s1 = Stock('ACME1', 51, 92.1)
+    print(f"s1.name:{s1.name} s1.shares:{s1.shares} s1.price:{s1.price}")
     s2 = Stock('ACME', 50, price=91.1)
     s3 = Stock('ACME', shares=50, price=91.1)
+    print(f"s2.name:{s2.name} s2.shares:{s2.shares} s2.price:{s2.price}")
     # s3 = Stock('ACME', shares=50, price=91.1, aa=1)
 
 
@@ -86,14 +95,14 @@ class Structure3:
 
         if kwargs:
             raise TypeError('Duplicate values for {}'.format(','.join(kwargs)))
+class Stock1(Structure3):
+    _fields = ['name', 'shares', 'price']
 
-# Example use
-if __name__ == '__main__':
-    class Stock(Structure3):
-        _fields = ['name', 'shares', 'price']
-
-    s1 = Stock('ACME', 50, 91.1)
-    s2 = Stock('ACME', 50, 91.1, date='8/2/2012')
+def test2():
+    s1 = Stock1('ACME', 50, 91.1)
+    s2 = Stock1('ACME', 50, 91.1, date='8/2/2012')
+    print(f"s1.name:{s1.name} s1.shares:{s1.shares} s1.price:{s1.price}")
+    print(f"s2.name:{s2.name} s2.shares:{s2.shares} s2.price:{s2.price} s2.date:{s2.date}")
 
 
 class Structure4:
@@ -106,3 +115,9 @@ class Structure4:
         # Set the arguments (alternate)
         self.__dict__.update(zip(self._fields,args))
 
+
+
+if __name__ == "__main__":
+    test0()
+    test1()
+    test2()

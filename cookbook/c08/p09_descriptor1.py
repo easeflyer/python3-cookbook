@@ -16,6 +16,7 @@ IBM 的。把这个看了：
 https://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/index.html
 
 
+
 属性查询优先级：（必须记住，这是前提）
     1 __getattribute__()， 无条件调用
     2 数据描述符：由 1 触发调用 （若人为的重载了该 __getattribute__() 方法，可能会调职无法调用描述符）

@@ -3,6 +3,12 @@
 """
 Topic: 实现状态对象或状态机
 Desc : 
+
+代码分析：
+    1 对 不同状态 分别对应的创建类。
+    2 定义一个基类，所有状态类实现这个基类。
+    3 对象的功能由 对应的“对象状态”提供。
+    4 状态对象的对应方法执行具体操作和报错。
 """
 
 
@@ -111,12 +117,14 @@ class OpenConnectionState(ConnectionState):
     def close(conn):
         conn.new_state(ClosedConnectionState)
 
-
-c = Connection1()
-print(c._state)
-c.open()
+def test1():
+    c = Connection1()
+    print(c._state)
+    c.open()
+    # c.open() # RuntimeError: Already open
 
 # Alternative implementation
+# [ɔl'tɝnətɪv] 供选择的
 class State:
     def __init__(self):
         self.new_state(State_A)
@@ -147,3 +155,7 @@ class State_C(State):
         # Action for C
         pass
         self.new_state(State_A)
+
+
+if __name__ == '__main__':
+    test1()

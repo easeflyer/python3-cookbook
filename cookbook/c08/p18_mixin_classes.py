@@ -4,6 +4,14 @@
 Topic: 混入类
 Desc : 如果单独使用Minxin类没有任何意义，但是当利用多继承和其他类配合后就有神奇效果了。
     Mixin也是多继承的主要用途。
+
+知识点：
+    1 __getitem__, __setitem__, __delitem__
+     是对序列的操作。添加了这几个魔术方法，影响到实例的 a['name'] 的读取赋值和删除
+    
+
+
+
 """
 
 
@@ -29,6 +37,7 @@ class LoggedMappingMixin:
 class SetOnceMappingMixin:
     '''
     Only allow a key to be set once.
+    如果key 存在就报错。因此只能设置一次
     '''
     __slots__ = ()
 
@@ -53,11 +62,19 @@ class StringKeysMappingMixin:
 class LoggedDict(LoggedMappingMixin, dict):
     pass
 
-
-d = LoggedDict()
-d['x'] = 23
-print(d['x'])
-del d['x']
+def test1():
+    '''
+    从上面的定义可以看到，LoggedDict 类继承了LoggedMappingMixin 和 dict
+    本质上 LoggedDict 是一个 dict，他们属于继承关系。
+    而LoggedMappingMixin 则是提供了特定的功能。概念上并没有父子关系。cookbook中所述：
+    你有很多有用的方法，想使用它们来扩展其他类的功能。但是这些类并没有任何继承的关系。
+    因此你不能简单的将这些方法放入一个基类，然后被其他类继承。
+    本例中 LoggedDict  为字典模拟添加了 Log 功能。
+    '''
+    d = LoggedDict()
+    d['x'] = 23     # setitem
+    print(d['x'])   # getitem      
+    del d['x']      # delitem
 
 from collections import defaultdict
 
@@ -65,15 +82,24 @@ from collections import defaultdict
 class SetOnceDefaultDict(SetOnceMappingMixin, defaultdict):
     pass
 
-
-d = SetOnceDefaultDict(list)
-d['x'].append(2)
-d['x'].append(3)
-# d['x'] = 23  # KeyError: 'x already set'
+def test2():
+    '''
+    defaultdict 具有默认值的 dict
+    '''
+    d = SetOnceDefaultDict(list)
+    d['x'].append(2)
+    d['x'].append(3)
+    # d['x'] = 23  # KeyError: 'x already set'
 
 
 def LoggedMapping(cls):
-    """第二种方式：使用类装饰器"""
+    """第二种方式：使用类装饰器
+    这个类装饰器非常值得学习。充分体现了 类装饰器只是 函数的语法糖
+    @classdecorator
+    class cls1
+    也就是 cls1 = classdecorator(cls1)
+    
+    """
     cls_getitem = cls.__getitem__
     cls_setitem = cls.__setitem__
     cls_delitem = cls.__delitem__
@@ -97,5 +123,19 @@ def LoggedMapping(cls):
 
 
 @LoggedMapping
-class LoggedDict(dict):
+class LoggedDict1(dict):
     pass
+
+def test3():
+    ld1 = LoggedDict1()
+    ld1['id'] = 33
+    ld1['name'] = "zhangsan"
+    print(ld1['name'])
+    del ld1['name']
+
+
+
+if __name__ == "__main__":
+    test1()
+    test2()
+    test3()

@@ -4,17 +4,26 @@
 Topic: 自定义迭代器协议
 Desc : 
 
-DepthFirstIterator 比较繁琐，略过。
+1 目前为止，在一个对象上实现迭代最简单的方式是使用一个生成器函数
+
+
+DepthFirstIterator 比较繁琐，略过。（除非必要不用这个方式）
 直接用上节介绍的，生成器实现自定义即可。
+
+
+
 """
 
 
 class Node:
+    '''
+    Node 每个节点包含：1 自身的值 _value 2 孩子节点
+    '''
     def __init__(self, value):
         self._value = value
         self._children = []
 
-    def __repr__(self):
+    def __repr__(self): # __repr__ 针对程序员的输出 __str__ 针对用户的输出
         return 'Node({!r})'.format(self._value)
 
     def add_child(self, node):
@@ -24,8 +33,8 @@ class Node:
         return iter(self._children)
 
     def depth_first(self):
-        yield self
-        for c in self:
+        yield self      # 先返回自己
+        for c in self:  # 随后返回自己的子节点
             yield from c.depth_first()
 
 
@@ -92,4 +101,8 @@ if __name__ == '__main__':
     for ch in root.depth_first():
         print(ch)
         # Outputs Node(0), Node(1), Node(3), Node(4), Node(2), Node(5)
+
+# 0
+# 1   2
+# 34  5
 

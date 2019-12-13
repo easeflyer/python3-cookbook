@@ -7,11 +7,12 @@ Desc :
 
 import logging
 
-a = logging.getLogger('foo')
-b = logging.getLogger('bar')
-print(a is b)
-c = logging.getLogger('foo')
-print(a is c)
+def test1():
+    a = logging.getLogger('foo')
+    b = logging.getLogger('bar')
+    print(a is b)
+    c = logging.getLogger('foo')
+    print(a is c)
 
 # The class in question
 class Spam:
@@ -32,9 +33,31 @@ def get_spam(name):
         s = _spam_cache[name]
     return s
 
+def test11():
+    '''
+    1 spam 对象的创建通过 get_spam 代理。
+    2 get_spam 首先判断 同名 spam 是否已经存在，如果存在就返回，不存在则新建，并缓存。
+    3 这里用了弱引用，缓存对于对象的弱引用，保证了不会影响到其他逻辑对对象的 删除操作。
+        当其他引用删除了对对象的引用。则对象内存被回收，缓存失效。
+    '''
+
+    a = get_spam('foo')
+    b = get_spam('bar')
+    c = get_spam('foo')
+
+    print(f"a is b:{a is b}")
+    print(f"a is c:{a is c}")
+    
+
+
 
 # Note: This code doesn't quite work
 class Spam1:
+    '''
+    注意这里 __new__ 虽然设计良好，貌似可以实现缓存。
+    但是 __init__ 每次都被执行了。也就是说 self.name 每次都被重新赋值。
+    而不是从缓存中取出的。这不是预期的效果。
+    '''
     _spam_cache = weakref.WeakValueDictionary()
 
     def __new__(cls, name):
@@ -51,10 +74,10 @@ class Spam1:
         self.name = name
 
 
-s = Spam1('Dave')
-t = Spam1('Dave')
-print(s is t)
-
+def test2():
+    s = Spam1('Dave')
+    t = Spam1('Dave')
+    print(f"s is t:{s is t}")
 
 class CachedSpamManager:
     def __init__(self):
@@ -110,8 +133,15 @@ class Spam3:
         self.name = name
         return self
 
-print('------------------------------')
-cachedSpamManager = CachedSpamManager2()
-s = cachedSpamManager.get_spam('Dave')
-t = cachedSpamManager.get_spam('Dave')
-print(s is t)
+def test3():
+    print('------------------------------')
+    cachedSpamManager = CachedSpamManager2()
+    s = cachedSpamManager.get_spam('Dave')
+    t = cachedSpamManager.get_spam('Dave')
+    print(s is t)
+
+
+test1()
+test11()
+test2()
+test3()

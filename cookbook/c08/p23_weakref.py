@@ -3,6 +3,10 @@
 """
 Topic: 弱引用
 Desc : 
+
+知识点：
+    1 弱引用 就是个指针。不会增加引用计数。因此删除其他引用后，对象就会被立即回收。
+    2 不会造成内存泄露问题。
 """
 
 import weakref
@@ -46,19 +50,29 @@ class Node1:
 
     def add_child(self, child):
         self.children.append(child)
-        child.parent = self
+        #child.parent = weakref.ref(self)    # 弱引用 直接被垃圾回收。
+        child.parent = self                # 普通引用 必须强制回收。
 
 
-a = Data()
-del a
-# print(a) NameError: name 'a' is not defined
-a = Node1()
-del a
-# print(a)
-a = Node1()
-a.add_child(Node1())
-print('--------last del start------------')
-del a  # Not deleted (no message)
-print('--------last del end------------')
-# print(a)
-print('11111111111111111')
+def test1():
+    a = Data()
+    del a
+    # print(a) NameError: name 'a' is not defined
+    a = Node1()
+    del a
+    # print(a) 
+    # UnboundLocalError: local variable 'a' referenced before assignment
+    a = Node1()
+    a.add_child(Node1())
+    print('--------last del start------------')
+    del a  # Not deleted (no message)
+    print('--------force del start------------')
+    import gc
+    gc.collect()
+    print('--------last del end------------')
+    # print(a)
+    print('11111111111111111')
+
+
+
+test1()
